@@ -1,0 +1,15 @@
+.Person {
+  width: 60%;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 2px 3px 0;
+  padding: 20px 0;
+  margin: 30px auto;
+}
+
+button {
+  color: red;
+  background-color: blueviolet;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+}
