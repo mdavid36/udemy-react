@@ -11,13 +11,11 @@ class App extends Component {
         { name: 'Erin', age: 22 },
         { name: 'Greg', age: 42 },
       ],
-      otherState: true
+      showPersons: false,
     }
   }
 
   switchNameHandler = (newName) => {
-    // console.log('CLIck my ass')
-    // this.state.persons[0].name = 'DUDE'
     this.setState({
       people: [
         { name: newName, age: 32 },
@@ -37,18 +35,34 @@ class App extends Component {
     })
   }
 
+  togglePersons = () => {
+    const shouldShow = this.state.showPersons;
+    this.setState({showPersons: !shouldShow})
+  }
+
   render() {
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person person={this.state.people[0]} />
+          <Person
+            person={this.state.people[1]}
+            click={this.switchNameHandler.bind(this, 'Porky')}
+            changed={this.nameChangedHandler}
+          >My interests Dirt bikes</Person>
+          <Person person={this.state.people[2]} />
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <p>Howdy</p>
-        <button onClick={this.switchNameHandler.bind(this, 'DudeBro')}>Switch Name</button>
-        <Person person={this.state.people[0]} />
-        <Person
-          person={this.state.people[1]}
-          click={this.switchNameHandler.bind(this, 'Porky')}
-          changed={this.nameChangedHandler}
-        >My interests Dirt bikes</Person>
-        <Person person={this.state.people[2]} />
+        <button onClick={this.togglePersons}>Switch Name</button>
+        {persons}
       </div>
     );
   }
