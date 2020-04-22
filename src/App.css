@@ -1,3 +1,11 @@
 .App {
   text-align: center;
 }
+
+.green {
+  background-color: green;
+}
+
+.bold {
+  font-weight: bold;
+}

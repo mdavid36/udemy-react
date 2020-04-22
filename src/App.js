@@ -59,9 +59,19 @@ class App extends Component {
       )
     }
 
+    const classes = [];
+    if(this.state.persons.length <= 2) {
+      classes.push('green')
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold')
+    }
+
+    const classesString = classes.join(' ');
+
     return (
       <div className="App">
-        <p>Howdy</p>
+        <p className={classesString}>Howdy</p>
         <button onClick={this.togglePersons}>Switch Name</button>
         {persons}
       </div>
