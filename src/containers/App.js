@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Radium from 'radium'
 import './App.css';
 import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   constructor(props) {
@@ -42,54 +42,29 @@ class App extends Component {
   }
 
   render() {
-
-    let style = {
-      color: 'black',
-      backgroundColor: 'blueviolet',
-      borderRadius: '12px',
-      padding: '10px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen'
-      }
-  }
-
     let persons = null;
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Persons 
-          persons={this.state.persons} 
-          clicked={this.deletePersonHandler} 
-          changed={this.nameChangedHandler}/>
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />
         </div>
       )
-      style.backgroundColor = 'red';
-      style[':hover']= {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
     }
-
-    const classes = [];
-    if(this.state.persons.length <= 2) {
-      classes.push('green')
-    }
-    if(this.state.persons.length <= 1) {
-      classes.push('bold')
-    }
-
-    const classesString = classes.join(' ');
 
     return (
       <div className="App">
-        <p className={classesString}>Howdy</p>
-        <button style={style} onClick={this.togglePersons}>Switch Name</button>
+        <Cockpit
+          persons={this.state.persons}
+          showPersons={this.state.showPersons}
+          buttonClick={this.togglePersons} />
         {persons}
       </div>
     );
   }
 }
 
-export default Radium(App);
+export default (App);

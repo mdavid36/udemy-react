@@ -10,6 +10,4 @@ const Persons = (props) => props.persons.map((person, index) => {
               changed={(event) => props.changed(event, person.id)} />
           })
 
-
-
 export default Persons
