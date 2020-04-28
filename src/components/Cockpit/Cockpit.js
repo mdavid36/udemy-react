@@ -9,7 +9,7 @@ const Cockpit = (props) => {
   if (props.showPersons) {
     buttonClasses = 'red';
     }
-    
+
   const bannerClasses = [];
   if (props.persons.length <= 2) {
     bannerClasses.push('green')
@@ -22,8 +22,8 @@ const Cockpit = (props) => {
 
   return (
     <div className='cockpit'>
-      <p className={bannerClassesString}>Howdy</p>
-      <button className={buttonClasses} onClick={props.buttonClick}>Switch Name</button>
+      <p className={bannerClassesString}>{props.title}</p>
+      <button className={buttonClasses} onClick={props.clicked}>Switch Name</button>
     </div>
   )
 }
