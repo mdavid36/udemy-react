@@ -5,11 +5,3 @@
   padding: 20px 0;
   margin: 30px auto;
 }
-
-button {
-  color: red;
-  background-color: blueviolet;
-  border-radius: 12px;
-  padding: 10px;
-  cursor: pointer;
-}

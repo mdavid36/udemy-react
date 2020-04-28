@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Radium from 'radium'
 import './App.css';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
 
 class App extends Component {
   constructor(props) {
@@ -42,21 +43,33 @@ class App extends Component {
 
   render() {
 
+    let style = {
+      color: 'black',
+      backgroundColor: 'blueviolet',
+      borderRadius: '12px',
+      padding: '10px',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen'
+      }
+  }
+
     let persons = null;
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
+          <Persons 
+          persons={this.state.persons} 
+          clicked={this.deletePersonHandler} 
+          changed={this.nameChangedHandler}/>
         </div>
       )
+      style.backgroundColor = 'red';
+      style[':hover']= {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
 
     const classes = [];
@@ -72,11 +85,11 @@ class App extends Component {
     return (
       <div className="App">
         <p className={classesString}>Howdy</p>
-        <button onClick={this.togglePersons}>Switch Name</button>
+        <button style={style} onClick={this.togglePersons}>Switch Name</button>
         {persons}
       </div>
     );
   }
 }
 
-export default App;
+export default Radium(App);
