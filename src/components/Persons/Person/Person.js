@@ -1,13 +1,20 @@
-import React, { Fragment } from 'react'
-import './Person.css'
+import React, { Component } from 'react'
+import classes from './Person.module.css'
+import CustomFragment from '../../../higherOrderComponents/CustomFragment';
+import withClass from '../../../higherOrderComponents/withClass';
 
-export default function Person(props) {
-  console.log('####Person.js rendering...')
-  return (
-    <Fragment>
-      <p onClick={props.click}>My name is {props.name} and I am {props.age}</p>
-      <p>{props.children}</p>
-      <input type="text" onChange={props.changed} defaultValue={props.name}/>
-    </Fragment>
-  )
+
+class Person extends Component {
+  render () {
+    console.log('####Person.js rendering...')
+    return (
+      <CustomFragment>
+        <p onClick={this.props.click}>My name is {this.props.name} and I am {this.props.age}</p>
+        <p>{this.props.children}</p>
+        <input type="text" onChange={this.props.changed} defaultValue={this.props.name} />
+      </CustomFragment>
+    )
+  }
 }
+
+export default withClass(Person, classes.Person)
