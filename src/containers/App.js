@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../higherOrderComponents/WithClass';
+import withClass from '../higherOrderComponents/withClass';
+import CustomFragment from '../higherOrderComponents/CustomFragment';
 
 class App extends Component {
   constructor(props) {
@@ -56,10 +57,10 @@ class App extends Component {
       )
     }
 
-    console.log('>>>>> classes["App"]', classes["App"]);
+    console.log('>>>>> classes.App', classes.App);
 
     return (
-      <WithClass classes={classes["App"]}>
+      <CustomFragment classes={classes.App}>
         <button
           onClick={() => {
             this.setState({ 
@@ -76,9 +77,9 @@ class App extends Component {
               : null
         }
         {persons}
-      </WithClass>
+      </CustomFragment>
     );
   }
 }
 
-export default (App);
+export default withClass(App, classes.App);
