@@ -16,6 +16,7 @@ class App extends Component {
       ],
       showPersons: false,
       showCockpit: true,
+      changeCounter: 0,
     }
     console.log("^^^In the constructor")
   }
@@ -35,8 +36,11 @@ class App extends Component {
     const newPersons = [...this.state.persons];
     newPersons[indexToMatch] = personInstance;
 
-    this.setState({
-      persons: newPersons
+    this.setState((prevState, props) => {
+      return {
+        persons: newPersons,
+        changeCounter: prevState.changeCounter + 1
+      }
     });
   }
 
