@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../higherOrderComponents/WithClass';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class App extends Component {
         { id: 'qcwf', name: 'Greg', age: 42 },
       ],
       showPersons: false,
+      showCockpit: true,
     }
+    console.log("^^^In the constructor")
   }
 
   deletePersonHandler = (personIndex) => {
@@ -46,22 +49,34 @@ class App extends Component {
 
     if (this.state.showPersons) {
       persons = (
-          <Persons
-            persons={this.state.persons}
-            clicked={this.deletePersonHandler}
-            changed={this.nameChangedHandler} />
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler} />
       )
     }
 
+    console.log('>>>>> classes["App"]', classes["App"]);
+
     return (
-      <div className="App">
-        <Cockpit
-          title={this.props.appTitle}
-          persons={this.state.persons}
-          showPersons={this.state.showPersons}
-          clicked={this.togglePersons} />
+      <WithClass classes={classes["App"]}>
+        <button
+          onClick={() => {
+            this.setState({ 
+              showCockpit: false
+             })
+          }
+          }>Toggle Cockpit</button>
+          {this.state.showCockpit ? 
+            <Cockpit
+              title={this.props.appTitle}
+              personsLength={this.state.persons.length}
+              showPersons={this.state.showPersons}
+              clicked={this.togglePersons} />
+              : null
+        }
         {persons}
-      </div>
+      </WithClass>
     );
   }
 }

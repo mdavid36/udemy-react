@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Cockpit.css'
 import Radium from 'radium'
 
 
 const Cockpit = (props) => {
+
+  useEffect(() => {
+    console.log("%%%Cockpit useEffect")
+    setTimeout(() => {
+      alert('Saved Data to Cloud!')
+    }, 1000)
+    return () => console.log('Cockpit.js Cleanup code')
+  }, [])
+
+  useEffect(() => {
+    console.log("%%%Cockpit 2nd useEffect")
+    return () => console.log('Cockpit.js 2nd Cleanup code')
+  })
 
   let buttonClasses = ''
   if (props.showPersons) {
@@ -11,10 +24,10 @@ const Cockpit = (props) => {
     }
 
   const bannerClasses = [];
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     bannerClasses.push('green')
   }
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     bannerClasses.push('bold')
   }
 
@@ -28,4 +41,4 @@ const Cockpit = (props) => {
   )
 }
 
-export default Radium(Cockpit)
+export default React.memo(Radium(Cockpit))
