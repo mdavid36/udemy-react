@@ -4,19 +4,21 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../higherOrderComponents/withClass';
 import CustomFragment from '../higherOrderComponents/CustomFragment';
+import AuthContext from '../context/auth-context'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       persons: [
-        { id: 'oais', name: 'Matt', age: 32 },
+        { id: 'oais', name: 'Matt', age: "32" },
         { id: 'asdf', name: 'Erin', age: 22 },
         { id: 'qcwf', name: 'Greg', age: 42 },
       ],
       showPersons: false,
       showCockpit: true,
       changeCounter: 0,
+      authenticated: false
     }
     console.log("^^^In the constructor")
   }
@@ -49,6 +51,11 @@ class App extends Component {
     this.setState({ showPersons: !shouldShow })
   }
 
+  loginHandler = () => {
+    this.setState({ authenticated: true })
+    console.log("LoginHandler state", this.state.authenticated)
+  }
+
   render() {
     let persons = null;
 
@@ -57,7 +64,8 @@ class App extends Component {
         <Persons
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler} />
+          changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated} />
       )
     }
 
@@ -67,20 +75,27 @@ class App extends Component {
       <CustomFragment classes={classes.App}>
         <button
           onClick={() => {
-            this.setState({ 
+            this.setState({
               showCockpit: false
-             })
+            })
           }
           }>Toggle Cockpit</button>
-          {this.state.showCockpit ? 
+        <AuthContext.Provider 
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ?
             <Cockpit
               title={this.props.appTitle}
               personsLength={this.state.persons.length}
               showPersons={this.state.showPersons}
               clicked={this.togglePersons} />
-              : null
-        }
-        {persons}
+            : null
+          }
+          {persons}
+        </AuthContext.Provider>
       </CustomFragment>
     );
   }
